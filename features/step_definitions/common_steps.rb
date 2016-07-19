@@ -35,7 +35,7 @@ Then(/^the api call should (succeed|fail)$/) do |condition|
     puts "Request method: #{@method.upcase}"
     puts "Request URI: #{@uri}"
 
-    # 'http.request request' makes request, then saves response in instance variable, also measures response time
+    # 'http.request request' makes request, then saves response in instance variable
     @response = http.request request
     puts "Response status: #{@response.code} #{@response.message}"
   end

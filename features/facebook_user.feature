@@ -1,3 +1,4 @@
+@test_user
 Feature: Create and delete new test facebook user
 
   Scenario: As facebook developer, I'm creating a new test facebook user

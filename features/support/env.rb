@@ -3,6 +3,8 @@ require 'json'
 require 'rspec'
 
 $uri_hostname = ENV['HOSTNMAME'] || "https://graph.facebook.com"
+$users ||= Hash.new
+$ids ||= Array.new
 
 FACEBOOK_STORE =
     {"client_id" => "931957476934241",

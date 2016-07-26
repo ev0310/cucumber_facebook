@@ -34,7 +34,6 @@ When(/^these parameters are supplied in URL:$/) do |table|
 end
 
 Then(/^the ([^"]*) api call should (succeed|fail)$/) do |method, condition|
-  require_relative '../../features/support/server'
   response = Server.new(method, condition, @uri)
   response.facebook_response
   @response_body = response.response_body

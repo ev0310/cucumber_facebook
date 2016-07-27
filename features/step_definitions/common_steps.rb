@@ -43,10 +43,13 @@ And(/^value of access token is saved in a global variable$/) do
   @app_access_token = @response_body.split("=").last
 end
 
-And /^I save Facebook (.*)$/ do |user|
+And /^I create test Facebook (.*)$/ do |user|
+  step "the POST api call should succeed"
   @body = JSON.parse(@response_body)
   $users[user] = FacebookUser.new @body
   $ids << $users[user].id
+  p $users
+  p $ids
 end
 
 Given(/^delete all test users$/) do

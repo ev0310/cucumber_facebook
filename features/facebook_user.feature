@@ -6,6 +6,6 @@ Feature: Create and delete new test facebook user
     When these parameters are supplied in URL:
       |installed       | true              |
       |access_token    |                   |
-    And I create test Facebook user1
-    And I create test Facebook user2
+    And I make test Facebook user1
+
 

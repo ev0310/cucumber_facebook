@@ -3,7 +3,7 @@ def json_parse
 end
 
 Given(/^get app access token$/) do
-steps %Q{
+  steps %Q{
     Given a request is made to "/oauth/access_token"
     When these parameters are supplied in URL:
       |grant_type    | client_credentials               |
@@ -22,7 +22,7 @@ Given /^I create test (.*)$/ do |user|
       |access_token    |                   |
       |permissions     | read_stream,publish_actions,user_posts |
     And I make test Facebook #{user}
-  }
+        }
 end
 
 Given(/^a request is made to "([^"]*)"$/) do |path|
@@ -41,7 +41,7 @@ Given(/^a request is made to "([^"]*)"$/) do |path|
     end
   end
 
-  @uri    = URI("#{$uri_hostname}#{path}")
+  @uri = URI("#{$uri_hostname}#{path}")
   # @method is a variable that reference to the verb (i.e GET, POST)
 end
 

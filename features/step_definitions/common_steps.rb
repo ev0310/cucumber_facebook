@@ -1,4 +1,5 @@
 def json_parse
+  # Parse the JSON document from server into a Ruby hash map
   @parsed_response = JSON.parse(@response_body)
 end
 
@@ -15,6 +16,7 @@ Given(/^get app access token$/) do
 end
 
 Given /^I create test (.*)$/ do |user|
+  # creating test user
   steps %Q{
     Given a request is made to "/{client_id}/accounts/test-users"
     When these parameters are supplied in URL:
@@ -31,10 +33,12 @@ Given(/^a request is made to "([^"]*)"$/) do |path|
   if path.include?('{')
     path_variable = path[/{(.+)}/, 1]
 
+    # substituting client_id placeholder in path to one from env.rb FACEBOOK_STORE hash
     if FACEBOOK_STORE.has_key? path_variable
       path.gsub!(/{.*}/, FACEBOOK_STORE[path_variable])
     end
 
+    # substituting user1 placeholder in path to one from $users hash map
     if path_variable.include? "user"
       path.gsub!(/{.*}/, $users[path_variable].id)
       @user = $users[path_variable]
@@ -51,6 +55,7 @@ When(/^these parameters are supplied in URL:$/) do |table|
   request_parameters = table.rows_hash
   if request_parameters.has_key? "access_token"
     request_parameters["access_token"] = @app_access_token
+  #  get user access token
   elsif request_parameters.has_key? "user_access_token"
     request_parameters["access_token"] = @user.user_access_token
   end

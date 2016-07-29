@@ -25,3 +25,22 @@ Feature: post and read feeds
       | id           |
 
 
+    Given a request is made to "/{user2}/feed"
+    When these parameters are supplied in URL:
+      |installed                | true              |
+      |message                  | test 2            |
+      |user_access_token        |                   |
+    Then the POST api call should succeed
+
+    Given a request is made to "/{user2}/feed"
+    When these parameters are supplied in URL:
+      |user_access_token        |                   |
+    Then the GET api call should succeed
+
+    And these response keys should have value for "data":
+      |message                  | test 2           |
+
+    And these response keys should not be nil for "data":
+      | created_time |
+      | id           |
+

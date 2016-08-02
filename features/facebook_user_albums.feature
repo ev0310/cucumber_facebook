@@ -2,7 +2,7 @@
 Feature: Albums for facebook user
 
   Scenario: As facebook developer, I can create new album
-    Given I create test user1 with permissions:
+    Given I create test user1 with permissions
       |read_stream    |
       |publish_actions|
       |user_posts     |

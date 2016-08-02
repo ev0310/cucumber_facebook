@@ -1,4 +1,3 @@
-@test_user
 Feature: Create and delete new test facebook user
 
 #  Keeping this scenario as example only since we moved it into nested steps in
@@ -12,7 +11,7 @@ Feature: Create and delete new test facebook user
 
 
   Scenario: As facebook developer, I can change name of test user
-    Given I create test user1 with permissions:
+    Given I create test user1 with permissions
     Given a request is made to "/{user1}"
     When these parameters are supplied in URL:
       |name                | Lucy              |
@@ -25,4 +24,16 @@ Feature: Create and delete new test facebook user
     Then the GET api call should succeed
     And these response keys should have value:
       | name | Lucy|
+
+  @test_user
+
+  Scenario: As facebook developer, I can change name of test user
+    Given I create test user1 with permissions
+    Given I create test user2 with permissions
+
+    When a request is made to "/{user1}/friends"
+    When these parameters are supplied in URL:
+      |uid                 | user2             |
+      |user_access_token   |                   |
+    Then the POST api call should succeed
 

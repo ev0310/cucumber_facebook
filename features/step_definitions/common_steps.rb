@@ -14,7 +14,7 @@ Given(/^get app access token$/) do
 }
 end
 
-Given /^I create test (.*) with permissions:$/ do |user, *table|
+Given /^I create test (.*) with permissions$/ do |user, *table|
   # ["read_stream", "publish_actions", "user_posts"]
   if table.empty?
     table = Cucumber::Core::Ast::DataTable.new([["read_stream"], ["publish_actions"], ["user_posts"]], self)
@@ -61,6 +61,10 @@ When(/^these parameters are supplied in URL:$/) do |table|
     request_parameters["access_token"] = @user.user_access_token
     # deleting user_access_token key value since we swapping value with the access_token
     request_parameters.delete("user_access_token")
+  end
+
+  if request_parameters.has_key? "uid"
+    request_parameters["uid"] = $users[request_parameters["uid"]].id
   end
 
   @uri.query = URI.encode_www_form(request_parameters)

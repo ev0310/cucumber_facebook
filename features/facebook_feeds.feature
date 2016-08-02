@@ -2,9 +2,9 @@
 Feature: post and read feeds
 
   Scenario: As facebook developer, I publish a new feed on test user profile
-    Given I create test user1 with permissions:
+    Given I create test user1 with permissions
 
-    Given I create test user2 with permissions:
+    Given I create test user2 with permissions
 
     Given a request is made to "/{user1}/feed"
     When these parameters are supplied in URL:

@@ -23,3 +23,10 @@ Then /^these response keys (should|should not) be nil for "([^"]*)":$/ do |shoul
      expect(json_parse[key][0][row[0]]).send(condition, be_nil)
   end
 end
+
+
+Then(/^these response keys should have value:$/) do |table|
+  table.raw.each do |row|
+    expect(json_parse[row[0]]).to be == row[1]
+  end
+end

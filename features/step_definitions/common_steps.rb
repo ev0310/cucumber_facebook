@@ -14,13 +14,14 @@ Given(/^get app access token$/) do
 }
 end
 
-Given /^I create test (.*)$/ do |user|
+Given /^I create test (.*) with permission(?:s)?$/ do |user, table|
+  # puts table.raw.join(',')
   steps %Q{
     Given a request is made to "/{client_id}/accounts/test-users"
     When these parameters are supplied in URL:
       |installed       | true              |
       |access_token    |                   |
-      |permissions     | read_stream,publish_actions,user_posts |
+      |permissions     | #{table.raw.join(',')} |
     And I make test Facebook #{user}
         }
 end
@@ -80,6 +81,6 @@ Given(/^delete all test users$/) do
     response = Server.new("DELETE", "succeed", uri)
     response.facebook_response
   end
-  $users = nil
-  $ids = nil
+  $users.clear
+  $ids.clear
 end

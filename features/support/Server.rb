@@ -34,8 +34,9 @@ class Server
       puts "Request URI: #{@uri}"
 
       # 'http.request request' makes request, then saves response in instance variable
-      @response = http.request request
+      response_time= Benchmark.realtime {@response = http.request request}
       puts "Response status: #{@response.code} #{@response.message}"
+      puts "Response time: #{response_time}"
     end
 
     puts "Response body: #{@response.body}"

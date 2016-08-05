@@ -3,9 +3,6 @@ Feature: Albums for facebook user
 
   Scenario: As facebook developer, I can create new album
     Given I create test user1 with permissions
-      |read_stream    |
-      |publish_actions|
-      |user_posts     |
       |user_photos    |
 
     Given a request is made to "/{user1}/albums"

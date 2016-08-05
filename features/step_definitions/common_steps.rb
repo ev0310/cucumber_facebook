@@ -15,12 +15,11 @@ Given(/^get app access token$/) do
 end
 
 Given /^I create test (.*) with permissions$/ do |user, *table|
-  # ["read_stream", "publish_actions", "user_posts"]
-  if table.empty?
-    table = Cucumber::Core::Ast::DataTable.new([["read_stream"], ["publish_actions"], ["user_posts"]], self)
-  else
-    table = table.first
-  end
+  default_permissions = [["read_stream"], ["publish_actions"], ["user_posts"]]
+  table.empty? ? default_permissions : default_permissions += table.first.raw
+
+  table = Cucumber::Core::Ast::DataTable.new(default_permissions, self)
+
   steps %Q{
     Given a request is made to "/{client_id}/accounts/test-users"
     When these parameters are supplied in URL:
@@ -52,20 +51,21 @@ Given(/^a request is made to "([^"]*)"$/) do |path|
 end
 
 When(/^these parameters are supplied in URL:$/) do |table|
+
+  # changing values in the data table
+  request_parameters = table.rows_hash.map { |k, v|
+    case
+      when k == "access_token" then  [k,"#{@app_access_token}"]
+      when k == "user_access_token" then ["access_token", "#{@user.user_access_token}"]
+      when k == "uid" then  [k,"#{$users[v].id}"]
+      else
+        [k, v]
+    end
+
+  }.to_h
+
   # flattens table parameters from feature file
   # into URI format i.e grant_type=client_credentials&client_id=23443334
-  request_parameters = table.rows_hash
-  if request_parameters.has_key? "access_token"
-    request_parameters["access_token"] = @app_access_token
-  elsif request_parameters.has_key? "user_access_token"
-    request_parameters["access_token"] = @user.user_access_token
-    # deleting user_access_token key value since we swapping value with the access_token
-    request_parameters.delete("user_access_token")
-  end
-
-  if request_parameters.has_key? "uid"
-    request_parameters["uid"] = $users[request_parameters["uid"]].id
-  end
 
   @uri.query = URI.encode_www_form(request_parameters)
 end

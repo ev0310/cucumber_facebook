@@ -14,7 +14,7 @@ Given(/^get app access token$/) do
 }
 end
 
-Given /^I create test (.*) with permissions$/ do |user, *table|
+Given /^I create test (.*) with permissions(?: with name (.*))?$/ do |user, name="John", *table|
   default_permissions = [["read_stream"], ["publish_actions"], ["user_posts"]]
   table.empty? ? default_permissions : default_permissions += table.first.raw
 
@@ -25,6 +25,7 @@ Given /^I create test (.*) with permissions$/ do |user, *table|
     When these parameters are supplied in URL:
       |installed       | true              |
       |access_token    |                   |
+      |name            | #{name}           |
       |permissions     | #{table.raw.join(',')} |
     And I make test Facebook #{user}
         }

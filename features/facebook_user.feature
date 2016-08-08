@@ -30,7 +30,7 @@ Feature: Create and delete new test facebook user
 
   Scenario: As facebook developer, I can make friends
     Given I create test user1 with permissions
-    Given I create test user2 with permissions
+    Given I create test user2 with permissions with name Mike
 
     When a request is made to "/{user1}/friends"
     When these parameters are supplied in URL:
@@ -48,3 +48,6 @@ Feature: Create and delete new test facebook user
     When these parameters are supplied in URL:
       |user_access_token   |                   |
     Then the GET api call should succeed
+
+    And these response keys should have value for "data":
+      |name                  | Mike           |

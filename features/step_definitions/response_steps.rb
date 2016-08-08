@@ -5,8 +5,12 @@ And(/^these response keys should have value for "([^"]*)":$/) do |key, table|
   table.raw.each do |row|
     # go through each row in table from feature file
     # match that first row from server response is equal to first row from table in feature file
-    # name"=>"Andrei" == "name", "Andrei"
-    expect(json_parse[key][0][row[0]]).to be == row[1]
+    # name"=>"John" == "name", "John"
+    if json_parse[key].kind_of?(Hash)
+      expect(json_parse[key][row[0]]).to be == row[1]
+    else
+      expect(json_parse[key][0][row[0]]).to be == row[1]
+    end
   end
 end
 

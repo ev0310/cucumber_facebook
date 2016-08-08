@@ -2,6 +2,7 @@ require 'net/http'
 require 'json'
 require 'rspec'
 require 'benchmark'
+require 'jsonpath'
 
 $uri_hostname = ENV['HOSTNMAME'] || "https://graph.facebook.com"
 $users ||= Hash.new

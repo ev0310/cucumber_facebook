@@ -17,8 +17,8 @@ Feature: Albums for facebook user
       |user_access_token   |                   |
     Then the GET api call should succeed
 
-    And these response keys should have value for "data":
-      |name                  | New Album           |
+    And these response keys should have value:
+      |name                  | New Album     |
 
     And these response keys should not be nil for "data":
       | created_time |
@@ -37,5 +37,5 @@ Feature: Albums for facebook user
 
     Then the POST api call should fail
 
-    And these response keys should have value for "error":
+    And these response keys should have value:
       |message                  | (#100) Param is_default must be a boolean           |

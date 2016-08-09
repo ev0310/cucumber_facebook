@@ -49,5 +49,5 @@ Feature: Create and delete new test facebook user
       |user_access_token   |                   |
     Then the GET api call should succeed
 
-    And these response keys should have value for "data":
+    And these response keys should have value:
       |name                  | Mike           |

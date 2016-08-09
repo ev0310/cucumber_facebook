@@ -28,9 +28,11 @@ Then /^these response keys (should|should not) be nil for "([^"]*)":$/ do |shoul
   end
 end
 
-
+# the way to go when parsing JSON
 Then(/^these response keys should have value:$/) do |table|
   table.raw.each do |row|
-    expect(json_parse[row[0]]).to be == row[1]
+    actual = JsonPath.on(json_parse, "$..#{row[0]}").first
+    expected = row[1]
+    expect(actual).to be == expected
   end
 end
